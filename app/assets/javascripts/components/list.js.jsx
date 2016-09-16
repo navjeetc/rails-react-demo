@@ -1,7 +1,9 @@
 var List = React.createClass({
+
   getInitialState() {
+
     return {
-      itemsList: []
+      itemsList: this.props.items
     }
   },
 
@@ -11,15 +13,18 @@ var List = React.createClass({
   },
 
   handleDescriptionChange(e) {
+    var items = this.state.itemsList;
     value = document.getElementById('input').value;
-    this.props.items.push(value);
-    this.setState({itemsList: this.props.items});
-    console.log(value);
-    console.log(this.props.items);
+    items.push(value);
+    this.setState({itemsList: items});
+    // blank out input form
+    document.getElementById('input').value = '';
+    e.preventDefault();
   },
 
   render: function() {
-    items = this.props.items.map( function(item, index) {
+    list = this.state.itemsList;
+    var items = list.map( function(item, index) {
       return (
         <Item description={item} key={index} />
       );
